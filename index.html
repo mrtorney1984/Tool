@@ -1156,4 +1156,19 @@
             });
             
             searchInput.addEventListener('keypress', function(e) {
-                if (e.key ===
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            function performSearch() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    // In a real implementation, this would search your tools
+                    alert(`Searching for: ${query}`);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

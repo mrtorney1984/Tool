@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free online responsive image resizer tool to quickly resize and optimize your images for web use.">
+  <meta name="keywords" content="image resizer, responsive image resizer, online image tool, resize image, photo editor">
+  <meta name="author" content="Your Name or Brand">
+  <title>Responsive Image Resizer Tool - Free Online Photo Resizer</title>
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="Responsive Image Resizer Tool" />
+  <meta property="og:description" content="Resize and optimize your images online with our fast and simple image resizer tool." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourwebsite.com/" />
+  <meta property="og:image" content="https://yourwebsite.com/preview.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" />
+
+  <!-- Styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: #f8f8f8;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.8rem;
+    }
+    .preview {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    img#output {
+      max-width: 100%;
+      height: auto;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+    button {
+      padding: 0.75rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    /* Ads block styling (optional) */
+    .ad-slot {
+      margin: 1rem 0;
+      text-align: center;
+      background: #f1f1f1;
+      padding: 0.5rem;
+      border: 1px dashed #ccc;
+    }
+    @media (min-width: 600px) {
+      .controls {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+  </style>
+
+  <!-- Google AdSense placeholder -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_UNIT_ID"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Responsive Image Resizer Tool</h1>
+    <div class="ad-slot">
+      <!-- AdSense Ad Unit ID Placeholder -->
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXX"
+        data-ad-slot="YOUR_AD_SLOT_ID"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <div class="preview">
+      <img id="output" alt="Image preview will appear here">
+    </div>
+
+    <div class="controls">
+      <input type="file" id="imageInput" accept="image/*">
+      <label for="resizeRange">Resize Level:</label>
+      <input type="range" id="resizeRange" min="10" max="100" value="100">
+      <button id="downloadBtn">Download Resized Image</button>
+    </div>
+
+    <div class="ad-slot">
+      <!-- Another AdSense block -->
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXX"
+        data-ad-slot="YOUR_AD_SLOT_ID"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div>
+
+  <script>
+    const imageInput = document.getElementById('imageInput');
+    const output = document.getElementById('output');
+    const resizeRange = document.getElementById('resizeRange');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let originalImage = null;
+
+    imageInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          originalImage = new Image();
+          originalImage.src = evt.target.result;
+          originalImage.onload = function() {
+            output.src = originalImage.src;
+          }
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    resizeRange.addEventListener('input', () => {
+      if (!originalImage) return;
+      const scale = resizeRange.value / 100;
+      const canvas = document.createElement('canvas');
+      canvas.width = originalImage.width * scale;
+      canvas.height = originalImage.height * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+      output.src = canvas.toDataURL('image/jpeg', 0.8); // adjust quality if needed
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      if (output.src) {
+        const link = document.createElement('a');
+        link.href = output.src;
+        link.download = 'resized-image.jpg';
+        link.click();
+      }
+    });
+  </script>
+</body>
+</html>
